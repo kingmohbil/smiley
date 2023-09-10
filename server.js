@@ -1920,6 +1920,32 @@ app.get('/', function (req, res) {
   hostname = req.hostname;
   HostRepo.getById(1).then((res) => {
     if (res) {
+      res.render('index', {
+        title: array['title'] || '',
+        logo: '/site/' + issi.logo,
+        banner: '/site/' + issi.banner,
+        pmpic: '/site/' + issi.pmpic,
+        prvpic: '/site/' + issi.prvpic,
+        prv2pic: '/site/' + issi.prv2pic,
+        prv3pic: '/site/' + issi.prv3pic,
+        storpic: '/site/' + issi.storpic,
+        online: filteredArray(online, 's', false).length,
+        namehost:
+          '<div class="fr borderg minix" style="color:lightslategrey;font-size: 15px!important;height: 26px;position: absolute;width: 409px;bottom: 0;padding: 2px;background-color: white;text-align: center;z-index: 99;">Copyright © 2022 <a title="TigerHoSt" class="mini" href="https://tiger-host.com/TH/"> تايجـر هـوست </a>. All Rights Reserved</div>',
+        colors: {
+          hicolor: SiteSettings['background'],
+          bgcolor: SiteSettings['bg'],
+          btcolor: SiteSettings['buttons'],
+        },
+        ifbanner: own.isbanner,
+        ifbanner1: own.isbanner1,
+        ifbanner2: own.isbanner2,
+        ifbanner3: own.isbanner3,
+        script: String(array['settscr']),
+        description: array['settdescription'] || '',
+        keywords: array['settkeywords'] || '',
+        istite: array['name'] || '',
+      });
     } else {
       HostRepo.create({ hostname: hostname, setting: 1 });
       SiteRepo.create({ host: hostname, ids: 1 });
@@ -12841,6 +12867,6 @@ user: socket.id,
   });
 });
 
-http.listen(PORT, function () {
+app.listen(PORT, function () {
   console.log('Server started on port ' + PORT);
 });
